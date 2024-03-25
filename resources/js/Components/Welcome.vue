@@ -5,7 +5,7 @@ import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 <template>
     <div>
         <div class="bg-gray-200 bg-opacity-25 lg:p-8">
-            <h1 class="block w-full">Aloha JaJa!!</h1>
+            <h3 class="text-lg font-semibold leading-tight text-gray-800">Aloha JaJa!!</h3>
 
             <!-- {{ $page.props }} -->
 
@@ -15,10 +15,14 @@ import ApplicationLogo from '@/Components/ApplicationLogo.vue';
             <button v-if="$page.props.user.permissions.include('create_roles')">Crear Roles</button>
             <button v-if="$page.props.user.permissions.include('create_lesson')">Crear Lecciones</button> -->
 
-            <div class="w-full flex bg-slate-800 rounded-lg justify-evenly">
+            <!-- CORRECTO -->
+            <!-- <div class="flex w-full rounded-lg bg-slate-800 justify-evenly">
                 <button v-if="$page.props.user.permissions.includes('create_roles')">Crear Roles</button>
                 <button v-if="$page.props.user.permissions.includes('create_lessons')">Crear Lecciones</button>
-            </div>
+            </div> -->
+            <p class="mt-4">
+                ¿Qué tal...?
+            </p>
         </div>
     </div>
 </template>
