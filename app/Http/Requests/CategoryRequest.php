@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CategoryRequest extends FormRequest
@@ -19,22 +20,24 @@ class CategoryRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
-    {
-        return [
-            // 'name' => 'required|string|max:100|unique:categories,name',
-            // Para ignorar el registro tratado en el UNIQUE:
-            //  - Si se recibe $ID como parámetro, entonces, $this->id
-            //  - Si se recibe $CATEGORY como parámetro, entonces, $this->category->id
-            'name' => 'required|string|max:100|unique:categories,name,' . $this->category->id,
-            // 'name' => 'unique:table,column,except,id'
-            /*
+    // public function rules(): array
+    // {
+    //     return [
+    // 'name' => 'required|string|max:100|unique:categories,name',
+    // Para ignorar el registro tratado en el UNIQUE:
+    //  - Si se recibe $ID como parámetro, entonces, $this->id
+    //  - Si se recibe $CATEGORY como parámetro, entonces, $this->category->id (si bien esto no funciona bien con el STORE)
+    // --------------------------------------------------
+    // 'name' => 'required|string|max:100|unique:categories,name,' . $this->id,
+    // --------------------------------------------------
+    // 'name' => 'unique:table,column,except,id'
+    /*
                 table, el nombre de la tabla.
                 column, el nombre de la columna implicada.
                 except, el ID que debe ser ignorado.
                 id, para especificar el nombre de la columna ID de la tabla si es que no tiene el nombre predeterminado de "id", por ejemplo, habría que especificarlo si fuera "category_id".
             */
-            /*
+    /*
                 Otra forma de aplicarlo el IGNORE del registro en el caso del UPDATE es con el empleo del objeto Rule:
                 'name' => [ 'required', 'string', 'max:100', Rule::unique('categories')->ignore($this->id) ],
 
@@ -42,7 +45,24 @@ class CategoryRequest extends FormRequest
 
                 'name' => 'required|string|max:100|unique:' . AppointmentStatus::class . ',name,' . $this->id,
             */
-        ];
+    //         'name' => ['required', 'string', 'max:100', Rule::unique('categories')->ignore($this->id)],
+    //     ];
+    // }
+    public function rules(): array
+    {
+        $rules = [];
+
+        if ($this->getMethod() == 'POST') {
+            $rules += [
+                'name' => 'required|string|max:100|unique:categories,name,',
+            ];
+        } else if ($this->getMethod() == 'PUT') {
+            $rules += [
+                'name' => 'required|string|max:100|unique:categories,name,' . $this->category->id,
+            ];
+        }
+
+        return $rules;
     }
 
     // Estableciendo MENSAJES personalizados
