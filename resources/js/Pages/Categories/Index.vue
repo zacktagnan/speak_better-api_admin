@@ -137,9 +137,10 @@ const deleteCategory =  (id) => {
                                         </tbody>
                                     </table>
                                 </div>
-                                <div v-if="categoriesTotal > 0" class="mt-5">
+                                <!-- TODO::Implementar PAGINADO -->
+                                <!-- <div v-if="categoriesTotal > 0" class="mt-5">
                                     PAGINADO
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
