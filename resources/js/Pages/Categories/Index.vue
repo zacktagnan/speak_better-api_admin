@@ -7,6 +7,7 @@ export default {
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
 import { Link } from '@inertiajs/vue3';
+import { Inertia } from '@inertiajs/inertia'
 
 defineProps({
     categories: {
@@ -133,11 +134,11 @@ const deleteCategory =  (id) => {
                                                     <Link
                                                         v-if="$page.props.user.permissions.includes('update_categories')"
                                                         :href="route('categories.edit', category.id)"
-                                                        class="text-indigo-600 hover:text-indigo-900">Editar</Link>
+                                                        class="text-indigo-900 hover:text-indigo-500">Editar</Link>
                                                     <Link
                                                         v-if="$page.props.user.permissions.includes('delete_categories')"
                                                         @click="deleteCategory(category.id)"
-                                                        class="ml-2 text-indigo-600 hover:text-indigo-900">Eliminar
+                                                        class="ml-2 text-red-900 hover:text-red-500">Eliminar
                                                     </Link>
                                                 </td>
                                             </tr>
