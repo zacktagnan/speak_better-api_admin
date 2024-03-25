@@ -101,7 +101,9 @@ const deleteCategory =  (id) => {
                                                     class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
                                                     Nombre
                                                 </th>
-                                                <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6" />
+                                                <th
+                                                    v-if="$page.props.user.permissions.includes('update_categories') || $page.props.user.permissions.includes('delete_categories')"
+                                                    scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6" />
                                             </tr>
                                         </thead>
                                         <tbody class="bg-white divide-y divide-gray-200">
@@ -115,6 +117,7 @@ const deleteCategory =  (id) => {
                                                     {{ category.name }}
                                                 </td>
                                                 <td
+                                                    v-if="$page.props.user.permissions.includes('update_categories') || $page.props.user.permissions.includes('delete_categories')"
                                                     class="relative py-4 pl-3 pr-4 text-sm font-medium text-right whitespace-nowrap sm:pr-6">
                                                     <!-- <a wire:navigate
                                                         href="{{ route('admin.students.edit', $student->id) }}"
@@ -127,9 +130,13 @@ const deleteCategory =  (id) => {
                                                         class="ml-2 text-indigo-600 hover:text-indigo-900">
                                                         {{ __('Delete') }}
                                                     </button> -->
-                                                    <Link :href="route('categories.edit', category.id)"
+                                                    <Link
+                                                        v-if="$page.props.user.permissions.includes('update_categories')"
+                                                        :href="route('categories.edit', category.id)"
                                                         class="text-indigo-600 hover:text-indigo-900">Editar</Link>
-                                                    <Link @click="deleteCategory(category.id)"
+                                                    <Link
+                                                        v-if="$page.props.user.permissions.includes('delete_categories')"
+                                                        @click="deleteCategory(category.id)"
                                                         class="ml-2 text-indigo-600 hover:text-indigo-900">Eliminar
                                                     </Link>
                                                 </td>

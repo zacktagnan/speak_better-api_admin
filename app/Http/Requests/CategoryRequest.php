@@ -23,7 +23,10 @@ class CategoryRequest extends FormRequest
     {
         return [
             // 'name' => 'required|string|max:100|unique:categories,name',
-            'name' => 'required|string|max:100|unique:categories,name,' . $this->id,
+            // Para ignorar el registro tratado en el UNIQUE:
+            //  - Si se recibe $ID como parámetro, entonces, $this->id
+            //  - Si se recibe $CATEGORY como parámetro, entonces, $this->category->id
+            'name' => 'required|string|max:100|unique:categories,name,' . $this->category->id,
             // 'name' => 'unique:table,column,except,id'
             /*
                 table, el nombre de la tabla.

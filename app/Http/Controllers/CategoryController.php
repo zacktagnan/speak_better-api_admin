@@ -6,14 +6,14 @@ use App\Http\Requests\CategoryRequest;
 use Inertia\Inertia;
 use App\Models\Category;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
+use Inertia\Response;
 
 class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): Response
     {
         // return Inertia::render('Categories.Index', [
         //     'categories' => Category::paginate(25),
@@ -31,7 +31,7 @@ class CategoryController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): Response
     {
         return inertia('Categories/Create');
     }
@@ -56,17 +56,20 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Category $category): Response
     {
-        //
+        return inertia('Categories/Edit', [
+            'category' => $category,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(CategoryRequest $request, Category $category): RedirectResponse
     {
-        //
+        $category->update($request->all());
+        return redirect()->route('categories.index');
     }
 
     /**
