@@ -2,16 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Lesson;
 use Illuminate\Http\Request;
+use Inertia\Response;
 
 class LessonController extends Controller
 {
+    const ITEMS_PER_PAGE = 25;
+
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): Response
     {
-        //
+        return inertia('Lessons/Index', [
+            'lessons' => Lesson::paginate(self::ITEMS_PER_PAGE),
+        ]);
     }
 
     /**
