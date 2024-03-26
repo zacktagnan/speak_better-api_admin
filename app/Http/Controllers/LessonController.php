@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Lesson;
+use App\Models\Level;
 use Illuminate\Http\Request;
 use Inertia\Response;
 
@@ -23,9 +25,12 @@ class LessonController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): Response
     {
-        //
+        return inertia('Lessons/Create', [
+            'categories' => Category::all(),
+            'levels' => Level::all(),
+        ]);
     }
 
     /**
