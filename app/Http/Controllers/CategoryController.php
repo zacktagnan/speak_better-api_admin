@@ -10,6 +10,8 @@ use Inertia\Response;
 
 class CategoryController extends Controller
 {
+    const ITEMS_PER_PAGE = 25;
+
     /**
      * Display a listing of the resource.
      */
@@ -25,9 +27,8 @@ class CategoryController extends Controller
         // Si la cantidad de registros es pequeña como para ver la BARRA de PAGINADO:
         //     -> crear más registros
         //     -> y/o reducir el valor de la cantidad de la constante
-        define('ITEMS_PER_PAGE', 25);
         return inertia('Categories/Index', [
-            'categories' => Category::paginate(ITEMS_PER_PAGE),
+            'categories' => Category::paginate(self::ITEMS_PER_PAGE),
             'categoriesTotal' => Category::all()->count(),
         ]);
     }
