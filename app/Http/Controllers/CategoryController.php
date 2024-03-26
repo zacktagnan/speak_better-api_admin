@@ -22,8 +22,12 @@ class CategoryController extends Controller
         // ----------------------------------------------------------
         // ¿Por qué con Inertia::render no funciona?
         // ----------------------------------------------------------
+        // Si la cantidad de registros es pequeña como para ver la BARRA de PAGINADO:
+        //     -> crear más registros
+        //     -> y/o reducir el valor de la cantidad de la constante
+        define('ITEMS_PER_PAGE', 25);
         return inertia('Categories/Index', [
-            'categories' => Category::paginate(25),
+            'categories' => Category::paginate(ITEMS_PER_PAGE),
             'categoriesTotal' => Category::all()->count(),
         ]);
     }

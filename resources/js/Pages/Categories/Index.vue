@@ -9,6 +9,9 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import { Link } from '@inertiajs/vue3';
 import { Inertia } from '@inertiajs/inertia'
 
+// import BasicPagination from '@/Components/Pagination/BasicPagination.vue'
+import FullPagination from '@/Components/Pagination/FullPagination.vue'
+
 defineProps({
     categories: {
         type: Object,
@@ -34,6 +37,8 @@ const deleteCategory =  (id) => {
                 Categorías
             </h2>
         </template>
+
+        <!-- {{ categories }} -->
 
         <!-- <div class="py-12">
             <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -102,8 +107,7 @@ const deleteCategory =  (id) => {
                                                     class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
                                                     Nombre
                                                 </th>
-                                                <th
-                                                    v-if="$page.props.user.permissions.includes('update_categories') || $page.props.user.permissions.includes('delete_categories')"
+                                                <th v-if="$page.props.user.permissions.includes('update_categories') || $page.props.user.permissions.includes('delete_categories')"
                                                     scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6" />
                                             </tr>
                                         </thead>
@@ -117,8 +121,7 @@ const deleteCategory =  (id) => {
                                                     class="py-4 pl-4 pr-3 text-sm font-medium text-gray-900 whitespace-nowrap sm:pl-6">
                                                     {{ category.name }}
                                                 </td>
-                                                <td
-                                                    v-if="$page.props.user.permissions.includes('update_categories') || $page.props.user.permissions.includes('delete_categories')"
+                                                <td v-if="$page.props.user.permissions.includes('update_categories') || $page.props.user.permissions.includes('delete_categories')"
                                                     class="relative py-4 pl-3 pr-4 text-sm font-medium text-right whitespace-nowrap sm:pr-6">
                                                     <!-- <a wire:navigate
                                                         href="{{ route('admin.students.edit', $student->id) }}"
@@ -145,10 +148,44 @@ const deleteCategory =  (id) => {
                                         </tbody>
                                     </table>
                                 </div>
+
                                 <!-- TODO::Implementar PAGINADO -->
                                 <!-- <div v-if="categoriesTotal > 0" class="mt-5">
                                     PAGINADO
                                 </div> -->
+
+                                <!-- <BasicPagination :items="categories" /> -->
+                                <FullPagination :items="categories" />
+
+                                <!-- ini :: Ejemplo de Paginado incrustado directamente -->
+                                <!-- <div class="flex flex-col mt-4">
+                                    <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                                        <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                                            <div
+                                                class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+                                                <div class="shadow sm:rounded-md sm:overflow-hidden">
+
+                                                    <div
+                                                        class="flex justify-between px-4 py-3 text-right bg-gray-50 sm:px-6">
+                                                        <Link v-if="categories.current_page > 1"
+                                                            :href="categories.prev_page_url"
+                                                            class="inline-flex items-center px-4 py-2 text-sm font-medium text-indigo-700 bg-indigo-100 border border-transparent rounded-md hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                                        Anterior
+                                                        </Link>
+                                                        <div v-else></div>
+                                                        <Link v-if="categories.current_page < categories.last_page"
+                                                            :href="categories.next_page_url"
+                                                            class="inline-flex items-center px-4 py-2 text-sm font-medium text-indigo-700 bg-indigo-100 border border-transparent rounded-md hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                                        Siguiente
+                                                        </Link>
+                                                        <div v-else></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <!-- fin :: Ejemplo de Paginado incrustado directamente -->
                             </div>
                         </div>
                     </div>
